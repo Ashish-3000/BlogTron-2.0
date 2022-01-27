@@ -64,7 +64,7 @@ function AuthorBox({ user, flag = 0 }) {
         <div className="flex flex-col items-center pb-10">
           <img
             className="mb-3 w-24 h-24 rounded-full shadow-lg"
-            src={Image}
+            src={user.photo === "" ? Image : user.photo}
             alt="Bonnie image"
           />
           <h3 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">

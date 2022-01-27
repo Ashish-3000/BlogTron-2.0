@@ -24,7 +24,11 @@ function BigBlog({ id, blog, edit = false }) {
         <div>
           <div className="p-3">
             <Link to={"/blog/" + blog.title} state={{ blog: blog }}>
-              <img className="h-96 w-full" src={blog.photo} alt="" />
+              <img
+                className="lg:h-96 md:h-96 sm:h-96 w-full"
+                src={blog.photo}
+                alt=""
+              />
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {blog.title}
               </h5>

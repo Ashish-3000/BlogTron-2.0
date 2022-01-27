@@ -27,3 +27,23 @@ export const updateLinks = (links) => {
       console.log(err);
     });
 };
+
+export const updatePic = (pic) => {
+  const { user, token } = isAuthenticated();
+  pic = { photo: pic };
+  return fetch(`${API}/updatepic/${user._id}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(pic),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

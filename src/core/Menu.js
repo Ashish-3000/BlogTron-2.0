@@ -95,7 +95,11 @@ function Menu({ val = 0, main = true }) {
                   <span className="sr-only">Open user menu</span>
                   <img
                     className="w-8 h-8 rounded-full"
-                    src={image}
+                    src={
+                      isAuthenticated().user.photo === ""
+                        ? image
+                        : isAuthenticated().user.photo
+                    }
                     alt="user photo"
                   />
                 </button>

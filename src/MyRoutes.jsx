@@ -34,7 +34,15 @@ function MyRoutes() {
           <Route path="/gaming" exact element={<Gaming />} />
           <Route path="/about" exact element={<About />} />
           <Route path="/author/:name" exact element={<Dashboard />} />
-          <Route path="/profile" exact element={<Profile />} />
+          <Route
+            path="/profile"
+            exact
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/edittag"
             exact

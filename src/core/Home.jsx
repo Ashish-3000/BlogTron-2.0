@@ -53,8 +53,9 @@ function Home() {
             {success && <BigBlog blog={blog[0]} />}
           </div>
           <div
-            className="col-span-2 lg:grid lg:grid-cols-2
-           md:grid md:grid-cols-2 sm:grid
+            className="col-span-2 grid lg:grid-cols-2
+             md:grid md:grid-cols-2 sm:grid
+             gap-3 w-11/12
             sm:grid-cols-2 md:gap-3 sm:gap-3 lg:gap-1 lg:w-full
              sm:w-10/12 md:w-10/12 m-auto justify-items-center items-center"
           >
