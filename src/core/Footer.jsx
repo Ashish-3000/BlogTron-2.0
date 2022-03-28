@@ -8,10 +8,10 @@ function Footer() {
          lg:grid-cols-2  md:grid md:grid-cols-2 
        justify-items-center items-center"
       >
-        <h3 className="text-2xl lg:col-span-1 md:col-span-1">BLOGTRON</h3>
-        <h4 className="text-2xl lg:col-span-1 md:col-span-1">
+        <p className="text-2xl lg:col-span-1 md:col-span-1">BLOGTRON</p>
+        <p className="text-2xl lg:col-span-1 md:col-span-1">
           Still thinking about it ...
-        </h4>
+        </p>
       </div>
     </div>
   );

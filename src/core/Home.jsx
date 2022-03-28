@@ -67,9 +67,9 @@ function Home() {
               })}
           </div>
         </div>
-        <h1 className="text-center font-bold text-2xl mt-5 mb-5">
+        <p className="text-center font-bold text-2xl mt-5 mb-5">
           Latest Articles...
-        </h1>
+        </p>
         <div className="m-auto lg:ml-48 lg:mr-48 lg:grid lg:grid-cols-4 gap-4 ">
           {flag &&
             success &&
@@ -94,12 +94,12 @@ function Home() {
                         src={blog.photo}
                         alt=""
                       />
-                      <h5
+                      <p
                         className="m-2 text-xl overflow-hidden
                    font-bold tracking-tight text-gray-900 dark:text-white"
                       >
                         {blog.title}
-                      </h5>
+                      </p>
                     </Link>
                   );
                 }

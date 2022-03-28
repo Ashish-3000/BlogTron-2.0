@@ -10,7 +10,6 @@ import { getAllTags } from "./helper/tagapicalls";
 
 function Blog() {
   const { blogdata } = useLocation().state;
-  console.log(blogdata._id);
   const navigate = useNavigate();
 
   const { user, token } = isAuthenticated();
@@ -18,7 +17,6 @@ function Blog() {
   const [flag, setFlag] = useState(0);
   const [url, setUrl] = useState(blogdata.photo);
   const [title, setTitle] = useState(blogdata.title);
-  // console.log(blogdata.tags);
   // const preValues = blogdata.tags.length != 0 ? blogdata.tags : [];
   const [file, setFile] = useState(null);
   const [error, setError] = useState(null);
@@ -133,7 +131,7 @@ function Blog() {
             selectionLimit="4"
           />
         </div>
-        <div className="mt-3 mb-3 h-1/2 border-2 border-orange-400 overflow-y-scroll">
+        <div className="mt-3 mb-3 pl-9 h-1/2 border-2 border-orange-400 overflow-y-scroll">
           <Editor
             editorData={editorData}
             setEditorData={setEditorData}

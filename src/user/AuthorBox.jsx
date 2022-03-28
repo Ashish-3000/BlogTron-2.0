@@ -67,12 +67,12 @@ function AuthorBox({ user, flag = 0 }) {
             src={user.photo === "" ? Image : user.photo}
             alt="Bonnie image"
           />
-          <h3 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+          <p className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
             {user.penname}
-          </h3>
-          <h3 className="mb-1 text-sm font-medium text-gray-900 dark:text-white">
+          </p>
+          <p className="mb-1 text-sm font-medium text-gray-900 dark:text-white">
             {user.name}
-          </h3>
+          </p>
           {/*<span className="text-sm text-gray-500 dark:text-gray-400">
             Visual Designer
           </span>*/}

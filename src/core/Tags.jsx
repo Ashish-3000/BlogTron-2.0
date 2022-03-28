@@ -21,7 +21,7 @@ function Tags() {
     <div>
       <Menu val={1} />
       <div className="min-h-screen">
-        <h1 className="text-4xl text-center font-bold">TAGS</h1>
+        <p className="text-4xl text-center font-bold">TAGS</p>
         <div className="m-auto w-3/4">
           {tags.length > 0 &&
             tags.map((tag, key) => {

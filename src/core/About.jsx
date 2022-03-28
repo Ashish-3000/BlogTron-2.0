@@ -13,11 +13,18 @@ function About() {
         </div>
         <div className="text-lg  lg:w-5/12 sm:w-7/12 m-auto mt-3">
           This is a blogging website focused on articles related to latest
-          technology. The UI is not great currently. I will work on the UI part
-          and will try to make it better.
+          technology. I am improving the things. Love to hear the about the
+          website.
         </div>
         <div className="mt-5 cursor-pointer">
-          <a href={link}>Write Mail</a>
+          <a href={link} className="text-blue-700 font-semibold">
+            Write Mail
+          </a>
+          <div>
+            <a href="/author/Clover66" className="text-red-300 font-bold">
+              My Page
+            </a>
+          </div>
         </div>
       </div>
       <Footer />

@@ -1,55 +1,24 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import EditorJS from "@editorjs/editorjs";
-import Header from "@editorjs/header";
 import Menu from "./Menu";
 import Footer from "./Footer.jsx";
+import { createReactEditorJS } from "react-editor-js";
+import { EDITOR_JS_TOOLS } from "./Tools.js";
 
 const EDITTOR_HOLDER_ID = "editorjs";
 function BlogTemplate() {
   const blog = useLocation().state.blog;
   const [editorData, setEditorData] = useState({});
-  const ejInstance = useRef();
   const [data, setData] = useState({
     title: "",
     photo: "",
     name: "",
     tags: [],
   });
-  const { title, photo, name, tags } = data;
-  // This will run only once
-  useEffect(() => {
-    if (!ejInstance.current) {
-      initEditor();
-    }
-    return () => {
-      ejInstance.current.destroy();
-      ejInstance.current = null;
-    };
-  }, []);
 
-  const initEditor = () => {
-    const editor = new EditorJS({
-      holder: EDITTOR_HOLDER_ID,
-      tools: {
-        header: {
-          class: Header,
-          shortcut: "CMD+SHIFT+H",
-        },
-      },
-      logLevel: "ERROR",
-      readOnly: true,
-      data: editorData,
-      onReady: () => {
-        ejInstance.current = editor;
-      },
-      autofocus: true,
-      tools: {
-        header: Header,
-      },
-      minHeight: 0,
-    });
-  };
+  const ReactEditorJS = createReactEditorJS();
+
+  const { title, photo, name, tags } = data;
 
   if (title === "") {
     setData({
@@ -65,9 +34,7 @@ function BlogTemplate() {
       <Menu />
       <div className="min-h-screen">
         <div className="w-11/12 lg:w-9/12 md:w-10/12 m-auto">
-          <h1 className="lg:text-4xl text-2xl text-center font-bold">
-            {title}
-          </h1>
+          <p className="lg:text-4xl text-2xl text-center font-bold">{title}</p>
           {photo != "" && (
             <img src={photo} className="mt-3 lg:w-10/12 lg:h-96 m-auto" />
           )}
@@ -78,7 +45,12 @@ function BlogTemplate() {
             </div>
           </div>
           <div>
-            <div className="" id={EDITTOR_HOLDER_ID}></div>
+            <ReactEditorJS
+              readOnly={true}
+              defaultValue={editorData}
+              tools={EDITOR_JS_TOOLS}
+            />
+            {/*<div className="" id={EDITTOR_HOLDER_ID}></div>*/}
           </div>
         </div>
         <div className="lg:w-5/12 md:5/12 w-11/12 m-auto">

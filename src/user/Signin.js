@@ -72,9 +72,9 @@ function Signin() {
         />
       )}
       {!flag && (
-        <h1 className="text-center text-2xl my-4 cursor-pointer font-bold">
+        <p className="text-center text-2xl my-4 cursor-pointer font-bold">
           BLOGTRON
-        </h1>
+        </p>
       )}
       <form className="w-8/12  m-auto">
         {error !== "" && <div className="">{error}</div>}

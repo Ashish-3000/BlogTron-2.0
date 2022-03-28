@@ -29,9 +29,9 @@ function BigBlog({ id, blog, edit = false }) {
                 src={blog.photo}
                 alt=""
               />
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              <p className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {blog.title}
-              </h5>
+              </p>
             </Link>
           </div>
         </div>

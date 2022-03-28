@@ -33,7 +33,7 @@ function TaggedBlogs() {
   return (
     <div>
       <Menu val={1} />
-      <h1 className="text-center text-3xl font-bold"> {tag.tag}</h1>
+      <p className="text-center text-3xl font-bold"> {tag.tag}</p>
       <div>
         {error && <div>{error}</div>}
         {message && <div>{message}</div>}

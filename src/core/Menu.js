@@ -70,7 +70,7 @@ function Menu({ val = 0, main = true }) {
               ></path>
   </svg>*/}
             <span className="self-center text-lg font-semibold whitespace-nowrap dark:text-white">
-              <h1 className="2xl font-bold">BlogTron</h1>
+              <p className="text-2xl font-bold">BlogTron</p>
             </span>
           </Link>
           <div className="flex items-center md:order-2 relative">

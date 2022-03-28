@@ -31,9 +31,9 @@ function BlogBox({ id, blog, edit = false }) {
           <div className="p-2">
             <Link to={"/blog/" + blog.title} state={{ blog: blog }}>
               <img className="h-32 w-full" src={blog.photo} alt="" />
-              <h5 className="mb-2 h-16 text-2xl font-bold tracking-tight text-gray-900 dark:text-white overflow-hidden">
+              <p className="mb-2 h-16 text-2xl font-bold tracking-tight text-gray-900 dark:text-white overflow-hidden">
                 {blog.title}
-              </h5>
+              </p>
             </Link>
           </div>
           {isAuthenticated() && edit && (

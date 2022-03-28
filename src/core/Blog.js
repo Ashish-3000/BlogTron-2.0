@@ -148,7 +148,7 @@ function Blog() {
             selectionLimit="4"
           />
         </div>
-        <div className="mt-3 mb-3 h-1/2 border-2 border-orange-400 overflow-y-scroll overflow-x-hidden p-2">
+        <div className="mt-3 mb-3 pl-9 h-1/2 border-2 border-orange-400 overflow-y-scroll overflow-x-hidden p-2">
           <Editor
             editorData={editorData}
             setEditorData={setEditorData}
