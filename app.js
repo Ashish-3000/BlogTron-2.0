@@ -27,6 +27,8 @@ app.use(cors());
 
 app.use(authRoutes);
 app.use(userRoutes);
+app.use(tagsRoutes);
+app.use(blogRoutes);
 
 app.get("/fetch", async (req, res) => {
   const { status, data } = await mql(req.query.url);
