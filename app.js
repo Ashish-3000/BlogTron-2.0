@@ -32,21 +32,21 @@ app.use(userRoutes);
 app.use(tagsRoutes);
 app.use(blogRoutes);
 
-app.get("/fetch", async (req, res) => {
-  const { status, data } = await mql(req.query.url);
-  const value = {
-    success: 1,
-    link: req.query.url,
-    meta: {
-      title: data.title,
-      description: data.description,
-      image: {
-        url: data.image,
-      },
-    },
-  };
-  return res.json(value);
-});
+// app.get("/fetch", async (req, res) => {
+//   const { status, data } = await mql(req.query.url);
+//   const value = {
+//     success: 1,
+//     link: req.query.url,
+//     meta: {
+//       title: data.title,
+//       description: data.description,
+//       image: {
+//         url: data.image,
+//       },
+//     },
+//   };
+//   return res.json(value);
+// });
 
 // PORT
 const port = 8000;
