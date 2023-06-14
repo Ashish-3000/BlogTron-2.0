@@ -1,20 +1,19 @@
-const mongoose = require("mongoose");
-const express = require("express");
+import { connect } from "mongoose";
+import express from "express";
 require("dotenv").config();
-const mql = require("@microlink/mql");
-const bodyParser = require("body-parser");
+import mql from "@microlink/mql";
+import { json } from "body-parser";
 const app = express();
-const cors = require("cors");
+import cors from "cors";
 
 // MyRoutes
-const authRoutes = require("./routes/auth");
-const userRoutes = require("./routes/user");
-const tagsRoutes = require("./routes/tags");
-const blogRoutes = require("./routes/blog");
+import authRoutes from "./routes/auth";
+import userRoutes from "./routes/user";
+import tagsRoutes from "./routes/tags";
+import blogRoutes from "./routes/blog";
 
 // DB connection
-mongoose
-  .connect(process.env.DATABASE)
+connect(process.env.DATABASE)
   .then(() => {
     console.log("DB Connected");
   })
@@ -23,14 +22,14 @@ mongoose
   });
 
 // Middlewares
-app.use(bodyParser.json());
+app.use(json());
 app.use(cors());
 
-// My Routes
-app.use(authRoutes);
-app.use(userRoutes);
-app.use(tagsRoutes);
-app.use(blogRoutes);
+// // My Routes
+// app.use(authRoutes);
+// app.use(userRoutes);
+// app.use(tagsRoutes);
+// app.use(blogRoutes);
 
 // app.get("/fetch", async (req, res) => {
 //   const { status, data } = await mql(req.query.url);
