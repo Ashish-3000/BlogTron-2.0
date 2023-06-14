@@ -26,6 +26,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use(authRoutes);
+app.use(userRoutes);
 
 app.get("/fetch", async (req, res) => {
   const { status, data } = await mql(req.query.url);
