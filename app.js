@@ -13,14 +13,14 @@ const cors = require("cors");
 // const blogRoutes = require("./routes/blog");
 
 // DB connection
-mongoose
-  .connect(process.env.DATABASE)
-  .then(() => {
-    console.log("DB Connected");
-  })
-  .catch(() => {
-    console.log("DB OOPs");
-  });
+// mongoose
+//   .connect(process.env.DATABASE)
+//   .then(() => {
+//     console.log("DB Connected");
+//   })
+//   .catch(() => {
+//     console.log("DB OOPs");
+//   });
 
 // Middlewares
 app.use(bodyParser.json());
@@ -47,7 +47,9 @@ app.use(cors());
 //   };
 //   return res.json(value);
 // });
-
+app.get('/', (req, res) => {
+  res.send('Hello World');
+});
 // PORT
 const port = 8000;
 
