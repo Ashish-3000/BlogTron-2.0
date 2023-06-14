@@ -7,10 +7,10 @@ const app = express();
 const cors = require("cors");
 
 // MyRoutes
-const authRoutes = require("./routes/auth");
-const userRoutes = require("./routes/user");
-const tagsRoutes = require("./routes/tags");
-const blogRoutes = require("./routes/blog");
+// const authRoutes = require("./routes/auth");
+// const userRoutes = require("./routes/user");
+// const tagsRoutes = require("./routes/tags");
+// const blogRoutes = require("./routes/blog");
 
 // DB connection
 mongoose
