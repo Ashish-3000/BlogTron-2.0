@@ -25,6 +25,23 @@ mongoose
 app.use(bodyParser.json());
 app.use(cors());
 
+app.get("/fetch", async (req, res) => {
+  const { status, data } = await mql(req.query.url);
+  const value = {
+    success: 1,
+    link: req.query.url,
+    meta: {
+      title: data.title,
+      description: data.description,
+      image: {
+        url: data.image,
+      },
+    },
+  };
+  return res.json(value);
+});
+
+
 // Constants
 const PORT = 8080;
 
