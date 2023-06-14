@@ -22,6 +22,9 @@ mongoose
     console.log("DB OOPs");
   });
 
+app.use(bodyParser.json());
+app.use(cors());
+
 // Constants
 const PORT = 8080;
 
