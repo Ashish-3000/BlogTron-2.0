@@ -15,6 +15,11 @@ exports.getBlogById = (req, res, next, id) => {
   });
 };
 
+exports.getBlogUsingId = (req, res) => {
+  const blog = req.thatblog;
+  return res.json(blog);
+};
+
 // create blog
 exports.createBlog = (req, res) => {
   const blog = Blog(req.body);
@@ -37,6 +42,34 @@ exports.createBlog = (req, res) => {
 exports.allBlogs = (req, res) => {
   Blog.find({ published: 1 })
     .sort({ createdAt: "desc" })
+    .exec((err, blogs) => {
+      if (err || blogs.length === 0) {
+        return res.json({
+          error: "No blogs found",
+        });
+      }
+      return res.json(blogs);
+    });
+};
+
+exports.getLatestBlogs = (req, res) => {
+  Blog.find({ published: 1 })
+    .sort({ createdAt: "desc" })
+    .limit(4)
+    .exec((err, blogs) => {
+      if (err || blogs.length === 0) {
+        return res.json({
+          error: "No blogs found",
+        });
+      }
+      return res.json(blogs);
+    });
+};
+
+exports.getpopularBlogs = (req, res) => {
+  Blog.find({ published: 1 })
+    .sort({ createdAt: "desc" })
+    .limit(11)
     .exec((err, blogs) => {
       if (err || blogs.length === 0) {
         return res.json({

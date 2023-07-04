@@ -11,6 +11,7 @@ const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const tagsRoutes = require("./routes/tags");
 const blogRoutes = require("./routes/blog");
+const subscriptionRoutes = require("./routes/subscriber");
 
 // DB connection
 mongoose
@@ -22,13 +23,16 @@ mongoose
     console.log("DB OOPs");
   });
 
+// Middlewares
 app.use(bodyParser.json());
 app.use(cors());
 
+// My Routes
 app.use(authRoutes);
 app.use(userRoutes);
 app.use(tagsRoutes);
 app.use(blogRoutes);
+app.use(subscriptionRoutes);
 
 app.get("/fetch", async (req, res) => {
   const { status, data } = await mql(req.query.url);
@@ -46,6 +50,8 @@ app.get("/fetch", async (req, res) => {
   return res.json(value);
 });
 
+// PORT
+const port = 8000;
 
 // Constants
 const PORT = 8080;

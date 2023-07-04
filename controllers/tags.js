@@ -28,6 +28,11 @@ exports.createTag = (req, res) => {
 
 exports.removeTag = (req, res) => {
   const tag = Tags(req.body);
+  Blog.find({ tags: tag.name })((err, blogs) => {
+    if (blogs.length !== 0) {
+      return res.json({ message: "sorry you can't delete this tag" });
+    }
+  });
   tag.remove((err, tag) => {
     if (err || !tag) {
       return res.status(400).json({

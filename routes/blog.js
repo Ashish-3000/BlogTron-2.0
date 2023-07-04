@@ -8,6 +8,9 @@ const {
   allBlogs,
   updateBlog,
   removeBlog,
+  getBlogUsingId,
+  getLatestBlogs,
+  getpopularBlogs,
 } = require("../controllers/blog");
 const { getUserById } = require("../controllers/user");
 
@@ -20,6 +23,15 @@ router.post("/createblog/:userId", isSignedIn, isAuthenticated, createBlog);
 
 // all blogs
 router.get("/allblogs", allBlogs);
+
+// latest 4 blogs
+router.get("/latestblogs", getLatestBlogs);
+
+// get popular blogs
+router.get("/popularblogs", getpopularBlogs);
+
+// get specific blog
+router.get("/getblog/:blogId", getBlogUsingId);
 
 // update the blog
 router.put(

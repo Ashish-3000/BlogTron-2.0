@@ -22,12 +22,6 @@ exports.signup = (req, res) => {
         err: "Not able to save the user in DB",
       });
     }
-    // res.json({
-    //   name: user.name,
-    //   email: user.email,
-    //   id: user._id,
-    // });
-
     return res.json({
       msg: "The user is saved",
     });

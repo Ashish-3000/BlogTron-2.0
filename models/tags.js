@@ -7,6 +7,10 @@ const tagSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  photo: {
+    type: String,
+    trim: true,
+  },
 });
 
 module.exports = mongoose.model("Tags", tagSchema);
