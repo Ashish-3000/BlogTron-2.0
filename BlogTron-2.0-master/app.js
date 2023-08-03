@@ -53,5 +53,5 @@ const port = 8000;
 
 // starting a server
 app.listen(port, () => {
-  console.log(`Running`);
+  console.log(`Running fast as I can`);
 });
