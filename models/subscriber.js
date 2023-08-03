@@ -6,6 +6,7 @@ let subscriberSchema = new mongoose.Schema({
     required: true,
     trime: true,
   },
+  verified: false,
 });
 
 module.exports = mongoose.model("Subscriber", subscriberSchema);

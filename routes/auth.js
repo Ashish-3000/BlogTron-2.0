@@ -1,8 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
-const { signin, signout, signup } = require("../controllers/auth");
+const {
+  signin,
+  signout,
+  signup,
+  verifyaccount,
+} = require("../controllers/auth");
+const { getUserById } = require("../controllers/user");
 
+router.param("userId", getUserById);
 // TODO:verify email using sending token
 
 router.post(
@@ -29,6 +36,8 @@ router.post(
   ],
   signin
 );
+
+router.put("/verify/:userId", verifyaccount);
 
 router.get("/signout", signout);
 

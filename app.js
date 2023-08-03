@@ -52,15 +52,11 @@ app.get("/fetch", async (req, res) => {
 
 // PORT
 const port = 8000;
-
-// Constants
-const PORT = 8080;
-
-// App
-app.get('/', (req, res) => {
-  res.send('Hello World');
+app.get("/", (req, res) => {
+  res.send({ title: "GeeksforGeeks" });
 });
 
-app.listen(PORT, () => {
-  console.log(`Running`);
+// starting a server
+app.listen(port, () => {
+  console.log(`Running on port`);
 });

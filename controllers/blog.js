@@ -11,12 +11,14 @@ exports.getBlogById = (req, res, next, id) => {
       });
     }
     req.thatblog = blog;
+    console.log(req.thatblog);
     next();
   });
 };
 
 exports.getBlogUsingId = (req, res) => {
   const blog = req.thatblog;
+  console.log(blog);
   return res.json(blog);
 };
 

@@ -1,7 +1,12 @@
 const express = require("express");
-const { addSubscriber } = require("../controllers/subscriber");
 const router = express.Router();
+const {
+  addSubscriber,
+  verifySubscriber,
+} = require("../controllers/subscriber");
 
-router.post("/addSubscriber", addSubscriber);
+router.post("/addsubscriber", addSubscriber);
+
+router.put("/verifysubscriber", verifySubscriber);
 
 module.exports = router;

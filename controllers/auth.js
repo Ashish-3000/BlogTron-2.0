@@ -1,9 +1,10 @@
 const Blog = require("../models/blog");
 const User = require("../models/user");
 const Tags = require("../models/tags");
-
-const { check, validationResult } = require("express-validator");
+const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
+const { google } = require("googleapis");
+const { check, validationResult } = require("express-validator");
 const expressJwt = require("express-jwt");
 
 // TODO:check for the uniqueness specifically
@@ -22,10 +23,89 @@ exports.signup = (req, res) => {
         err: "Not able to save the user in DB",
       });
     }
+    verify(user);
     return res.json({
       msg: "The user is saved",
     });
   });
+};
+
+function verify(user) {
+  const secret = process.env.SECRET + user.encry_password;
+  const payload = {
+    email: user.email,
+    id: user.id,
+  };
+
+  const token = jwt.sign(payload, secret, { expiresIn: "15m" });
+  const link = `${process.env.FRONTEND}/verify/${token}/${user.id}`;
+
+  const oAuth2Client = new google.auth.OAuth2(
+    process.env.OAUTH_CLIENTID,
+    process.env.OAUTH_CLIENTSECRET,
+    process.env.REDIRECT_URI
+  );
+  oAuth2Client.setCredentials({
+    refresh_token: process.env.OAUTH_REFRESH_TOKEN,
+  });
+
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      type: "OAuth2",
+      user: process.env.MAIL_USERNAME,
+      clientId: process.env.OAUTH_CLIENTID,
+      clientSecret: process.env.OAUTH_CLIENT_SECRET,
+      refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+    },
+  });
+  let mailOptions = {
+    from: process.env.MAIL_USERNAME,
+    to: user.email,
+    subject: "Verify Email",
+    text: `Click on this link to verify email ${link}`,
+  };
+
+  transporter.sendMail(mailOptions, function (err, data) {
+    if (err) {
+      console.log("Error " + err);
+    } else {
+      console.log("Email sent successfully");
+    }
+  });
+}
+
+exports.verifyaccount = (req, res) => {
+  const user = req.profile;
+  if (user.verified) {
+    return res.status(200).json({
+      message: "You are verified",
+    });
+  }
+  const id = req.body;
+  console.log(id);
+  const secret = process.env.SECRET + user.encry_password;
+
+  try {
+    const decoded = jwt.verify(id.token, secret);
+    console.log(decoded);
+    if (decoded.email === user.email && decoded.id === user.id) {
+      user.updateOne({ $set: { verified: true } }, (err, user) => {
+        if (err) {
+          return res.status(403).json({
+            error: "Sorry there is some problem on our side",
+          });
+        }
+        return res.status(200).json({
+          message: "verification Successfull",
+        });
+      });
+    }
+  } catch (err) {
+    return res.status(401).json({
+      error: "You have changed the link or there might be some other issue",
+    });
+  }
 };
 
 exports.signin = (req, res) => {
@@ -41,6 +121,14 @@ exports.signin = (req, res) => {
     if (err || !user) {
       return res.status(400).json({
         error: "User email does not exist",
+      });
+    }
+    // console.log(user);
+    if (!user.verified) {
+      verify(user);
+      return res.status(403).json({
+        error:
+          "Verify your mail id first, the verification mail has been sent to you",
       });
     }
     if (!user.authenticate(password)) {
