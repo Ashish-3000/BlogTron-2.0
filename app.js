@@ -51,7 +51,7 @@ app.get("/fetch", async (req, res) => {
 });
 
 // PORT
-const port = 8000;
+const port = 3000;
 app.get("/", (req, res) => {
   res.send({ title: "You have found the right place" });
 });
