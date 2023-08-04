@@ -11,14 +11,24 @@ exports.getBlogById = (req, res, next, id) => {
       });
     }
     req.thatblog = blog;
-    console.log(req.thatblog);
     next();
   });
 };
 
-exports.getBlogUsingId = (req, res) => {
+exports.getBlogUsingId = async (req, res) => {
   const blog = req.thatblog;
-  console.log(blog);
+  const tags = await Tags.find().where("_id").in(blog.tags).exec();
+  blog.tags = tags;
+  return res.json(blog);
+};
+
+exports.getBlogforEdit = async (req, res) => {
+  const blog = req.thatblog;
+  const tags = await Tags.find().where("_id").in(blog.tags).exec();
+  const selectedtags = tags.map((tag) => {
+    return { value: tag.name, label: tag.name, id: tag._id };
+  });
+  blog.tags = selectedtags;
   return res.json(blog);
 };
 

@@ -8,7 +8,6 @@ const subscriber = require("../models/subscriber");
 exports.addSubscriber = (req, res) => {
   const subscriber = Subscriber(req.body);
   // verification email sent
-  console.log(subscriber);
   Subscriber.findOne({ email: subscriber.email }).exec((err, user) => {
     if (err || !user || !user.verified) {
       subscriber.save((err, subscriber) => {
@@ -32,12 +31,10 @@ exports.addSubscriber = (req, res) => {
 
 exports.verifySubscriber = (req, res) => {
   const id = req.body;
-  console.log(id);
   const secret = process.env.SECRET + id.id;
 
   try {
     const decoded = jwt.verify(id.token, secret);
-    console.log(decoded);
     // Subscriber.findById(decoded.id).exec((err, subscriber) => {
     //   if (subscriber.verified) {
     //     return res.status(200).json({
@@ -54,7 +51,6 @@ exports.verifySubscriber = (req, res) => {
             error: "There is some problem on our side. Sorry for that",
           });
         }
-        console.log(subscriber);
         return res.json({
           message: "Verification Successful",
         });
@@ -98,8 +94,6 @@ function verify(user) {
       refreshToken: process.env.OAUTH_REFRESH_TOKEN,
     },
   });
-  console.log(link);
-  console.log(user.email);
   let mailOptions = {
     from: process.env.MAIL_USERNAME,
     to: user.email,

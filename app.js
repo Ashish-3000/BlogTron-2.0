@@ -53,7 +53,7 @@ app.get("/fetch", async (req, res) => {
 // PORT
 const port = 8000;
 app.get("/", (req, res) => {
-  res.send({ title: "GeeksforGeeks" });
+  res.send({ title: "You have found the right place" });
 });
 
 // starting a server

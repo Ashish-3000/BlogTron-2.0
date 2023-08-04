@@ -83,12 +83,10 @@ exports.verifyaccount = (req, res) => {
     });
   }
   const id = req.body;
-  console.log(id);
   const secret = process.env.SECRET + user.encry_password;
 
   try {
     const decoded = jwt.verify(id.token, secret);
-    console.log(decoded);
     if (decoded.email === user.email && decoded.id === user.id) {
       user.updateOne({ $set: { verified: true } }, (err, user) => {
         if (err) {

@@ -11,6 +11,7 @@ const {
   getBlogUsingId,
   getLatestBlogs,
   getpopularBlogs,
+  getBlogforEdit,
 } = require("../controllers/blog");
 const { getUserById } = require("../controllers/user");
 
@@ -32,6 +33,7 @@ router.get("/popularblogs", getpopularBlogs);
 
 // get specific blog
 router.get("/getblog/:blogId", getBlogUsingId);
+router.get("/getblog/edit/:blogId", getBlogforEdit);
 
 // update the blog
 router.put(
