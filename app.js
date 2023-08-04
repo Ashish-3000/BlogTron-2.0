@@ -13,6 +13,7 @@ const tagsRoutes = require("./routes/tags");
 const blogRoutes = require("./routes/blog");
 const subscriptionRoutes = require("./routes/subscriber");
 
+mongoose.set("strictQuery", false);
 // DB connection
 mongoose
   .connect(process.env.DATABASE)
@@ -51,12 +52,12 @@ app.get("/fetch", async (req, res) => {
 });
 
 // PORT
-const port = 8000;
+const port = 8080;
 app.get("/", (req, res) => {
   res.send({ title: "You have found the right place" });
 });
 
 // starting a server
 app.listen(port, () => {
-  console.log(`Running on port`);
+  console.log(`Running on port ${port}`);
 });
