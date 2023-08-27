@@ -3,7 +3,6 @@ const User = require("../models/user");
 const Tags = require("../models/tags");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
-const { google } = require("googleapis");
 const { check, validationResult } = require("express-validator");
 const expressJwt = require("express-jwt");
 
@@ -40,39 +39,16 @@ function verify(user) {
   const token = jwt.sign(payload, secret, { expiresIn: "15m" });
   const link = `${process.env.FRONTEND}/verify/${token}/${user.id}`;
 
-  const oAuth2Client = new google.auth.OAuth2(
-    process.env.OAUTH_CLIENTID,
-    process.env.OAUTH_CLIENTSECRET,
-    process.env.REDIRECT_URI
-  );
-  oAuth2Client.setCredentials({
-    refresh_token: process.env.OAUTH_REFRESH_TOKEN,
-  });
-
-  let transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      type: "OAuth2",
-      user: process.env.MAIL_USERNAME,
-      clientId: process.env.OAUTH_CLIENTID,
-      clientSecret: process.env.OAUTH_CLIENT_SECRET,
-      refreshToken: process.env.OAUTH_REFRESH_TOKEN,
-    },
-  });
-  let mailOptions = {
-    from: process.env.MAIL_USERNAME,
-    to: user.email,
-    subject: "Verify Email",
-    text: `Click on this link to verify email ${link}`,
-  };
-
-  transporter.sendMail(mailOptions, function (err, data) {
-    if (err) {
-      console.log("Error " + err);
-    } else {
-      console.log("Email sent successfully");
-    }
-  });
+  try {
+    resend.emails.send({
+      from: process.env.MAIL_USERNAME,
+      to: user.email,
+      subject: "Verify your email",
+      html: `<p>Verify your email ${link}</p>`,
+    });
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 exports.verifyaccount = (req, res) => {

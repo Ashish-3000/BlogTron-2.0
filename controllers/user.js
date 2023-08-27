@@ -3,7 +3,9 @@ const Blog = require("../models/blog");
 const Tags = require("../models/tags");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
-const { google } = require("googleapis");
+const { Resend } = require("resend");
+
+const resend = new Resend(process.env.Token);
 
 exports.getUserById = (req, res, next, id) => {
   User.findById(id).exec((err, user) => {
@@ -47,42 +49,22 @@ exports.updatePassword = (req, res) => {
     const token = jwt.sign(payload, secret, { expiresIn: "15m" });
     const link = `${process.env.FRONTEND}/password/${token}/${user.id}`;
 
-    const oAuth2Client = new google.auth.OAuth2(
-      process.env.OAUTH_CLIENTID,
-      process.env.OAUTH_CLIENTSECRET,
-      process.env.REDIRECT_URI
-    );
-    oAuth2Client.setCredentials({
-      refresh_token: process.env.OAUTH_REFRESH_TOKEN,
-    });
-
-    let transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        type: "OAuth2",
-        user: process.env.MAIL_USERNAME,
-        clientId: process.env.OAUTH_CLIENTID,
-        clientSecret: process.env.OAUTH_CLIENT_SECRET,
-        refreshToken: process.env.OAUTH_REFRESH_TOKEN,
-      },
-    });
-    let mailOptions = {
-      from: process.env.MAIL_USERNAME,
-      to: user.email,
-      subject: "Change Password",
-      text: `Change your Password ${link}`,
-    };
-
-    transporter.sendMail(mailOptions, function (err, data) {
-      if (err) {
-        console.log("Error " + err);
-      } else {
-        console.log("Email sent successfully");
-      }
-    });
-    return res.json({
-      message: "Reset mail has been sent to your email id",
-    });
+    try {
+      resend.emails.send({
+        from: process.env.MAIL_USERNAME,
+        to: user.email,
+        subject: "Update your password",
+        html: `<p> Update your password by clicking on this link ${link}</p>`,
+      });
+      return res.status(200).json({
+        message: "The reset link has been sent to your mentioned mail",
+      });
+    } catch (e) {
+      console.log(e);
+      return res.status(500).json({
+        error: "Sorry there is some problem on our side",
+      });
+    }
   });
 };
 
@@ -180,7 +162,7 @@ exports.getAuthorBlogs = (req, res) => {
 };
 
 // send otp
-exports.sendOtp = (req, res) => {
-  const data = req.body;
-  console.log(data);
-};
+// exports.sendOtp = (req, res) => {
+//   const data = req.body;
+//   console.log(data);
+// };
