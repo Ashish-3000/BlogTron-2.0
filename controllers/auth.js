@@ -5,6 +5,9 @@ const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
 const expressJwt = require("express-jwt");
+const { Resend } = require("resend");
+
+const resend = new Resend(process.env.Token);
 
 // TODO:check for the uniqueness specifically
 exports.signup = (req, res) => {
