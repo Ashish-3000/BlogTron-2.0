@@ -4,8 +4,6 @@ const { Resend } = require("resend");
 const Blog = require("../models/blog");
 const Subscriber = require("../models/subscriber");
 
-const resend = new Resend(process.env.Token);
-
 exports.addSubscriber = (req, res) => {
   const subscriber = Subscriber(req.body);
   // verification email sent
@@ -55,13 +53,13 @@ exports.verifySubscriber = (req, res) => {
 
   try {
     const decoded = jwt.verify(id.token, secret);
-    // Subscriber.findById(decoded.id).exec((err, subscriber) => {
-    //   if (subscriber.verified) {
-    //     return res.status(200).json({
-    //       message: "You have already subscribed",
-    //     });
-    //   }
-    // });
+    Subscriber.findById(decoded.id).exec((err, subscriber) => {
+      if (subscriber.verified) {
+        return res.status(200).json({
+          message: "You have already subscribed",
+        });
+      }
+    });
     Subscriber.findByIdAndUpdate(
       { _id: decoded.id },
       { $set: { verified: true } },
@@ -94,6 +92,8 @@ function verify(user) {
 
   const token = jwt.sign(payload, secret, { expiresIn: "15m" });
   const link = `${process.env.FRONTEND}/subscriber/${token}/${user.id}`;
+  const resend = new Resend(process.env.Token);
+
   try {
     resend.emails.send({
       from: process.env.MAIL_USERNAME,

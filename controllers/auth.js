@@ -7,8 +7,6 @@ const { check, validationResult } = require("express-validator");
 const expressJwt = require("express-jwt");
 const { Resend } = require("resend");
 
-const resend = new Resend(process.env.Token);
-
 // TODO:check for the uniqueness specifically
 exports.signup = (req, res) => {
   const errors = validationResult(req);
@@ -41,6 +39,7 @@ function verify(user) {
 
   const token = jwt.sign(payload, secret, { expiresIn: "15m" });
   const link = `${process.env.FRONTEND}/verify/${token}/${user.id}`;
+  const resend = new Resend(process.env.Token);
 
   try {
     resend.emails.send({

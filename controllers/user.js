@@ -5,8 +5,6 @@ const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const { Resend } = require("resend");
 
-const resend = new Resend(process.env.Token);
-
 exports.getUserById = (req, res, next, id) => {
   User.findById(id).exec((err, user) => {
     if (err || !user) {
@@ -48,6 +46,7 @@ exports.updatePassword = (req, res) => {
 
     const token = jwt.sign(payload, secret, { expiresIn: "15m" });
     const link = `${process.env.FRONTEND}/password/${token}/${user.id}`;
+    const resend = new Resend(process.env.Token);
 
     try {
       resend.emails.send({
