@@ -53,13 +53,13 @@ exports.verifySubscriber = (req, res) => {
 
   try {
     const decoded = jwt.verify(id.token, secret);
-    Subscriber.findById(decoded.id).exec((err, subscriber) => {
-      if (subscriber.verified) {
-        return res.status(200).json({
-          message: "You have already subscribed",
-        });
-      }
-    });
+    // Subscriber.findById(decoded.id).exec((err, subscriber) => {
+    //   if (subscriber.verified) {
+    //     return res.status(200).json({
+    //       message: "You have already subscribed",
+    //     });
+    //   }
+    // });
     Subscriber.findByIdAndUpdate(
       { _id: decoded.id },
       { $set: { verified: true } },
