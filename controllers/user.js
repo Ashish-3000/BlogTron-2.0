@@ -46,7 +46,7 @@ exports.updatePassword = (req, res) => {
 
     const token = jwt.sign(payload, secret, { expiresIn: "15m" });
     const link = `${process.env.FRONTEND}/password/${token}/${user.id}`;
-    const resend = new Resend(process.env.Token);
+    const resend = new Resend(process.env.RESEND_API);
 
     try {
       resend.emails.send({
